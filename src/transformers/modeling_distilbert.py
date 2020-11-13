@@ -631,7 +631,11 @@ class DistilBertForSequenceClassification(DistilBertPreTrainedModel):
             output_hidden_states=output_hidden_states,
             return_dict=return_dict,
         )
+        print('distilbert_output')
+        print(distilbert_output)
         hidden_state = distilbert_output[0]  # (bs, seq_len, dim)
+        print('hidden_state')
+        print(hidden_state)
         pooled_output = hidden_state[:, 0]  # (bs, dim)
         pooled_output = self.pre_classifier(pooled_output)  # (bs, dim)
         pooled_output = nn.ReLU()(pooled_output)  # (bs, dim)
