@@ -50,7 +50,7 @@ from .modeling_utils import (
     prune_linear_layer,
 )
 
-from torch.contrib import swa
+from torchcontrib.optim import swa
 
 from .utils import logging
 
