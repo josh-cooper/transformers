@@ -160,6 +160,8 @@ if is_azureml_available():
 
     DEFAULT_CALLBACKS.append(AzureMLCallback)
 
+from torchcontrib.optim import SWA
+
 logger = logging.get_logger(__name__)
 
 
@@ -507,12 +509,12 @@ class Trainer:
                     "weight_decay": 0.0,
                 },
             ]
-            self.optimizer = AdamW(
+            self.optimizer = SWA(AdamW(
                 optimizer_grouped_parameters,
                 lr=self.args.learning_rate,
                 betas=(self.args.adam_beta1, self.args.adam_beta2),
                 eps=self.args.adam_epsilon,
-            )
+            ))
         if self.lr_scheduler is None:
             self.lr_scheduler = get_linear_schedule_with_warmup(
                 self.optimizer, num_warmup_steps=self.args.warmup_steps, num_training_steps=num_training_steps
